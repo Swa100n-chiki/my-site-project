@@ -1,0 +1,31 @@
+
+name: CI - Проверка проекта
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получение файлов проекта
+        uses: actions/checkout@v4
+
+      - name: Проверка index.html
+        run: test -s index.html
+
+      - name: Проверка style.css
+        run: test -s style.css
+
+      - name: Проверка script.js
+        run: test -s script.js
+
+      - name: Проверка HTML
+        run: grep -qi "<html" index.html
+
+      - name: Завершение проверки
+        run: echo "Все файлы проверены успешно!"
